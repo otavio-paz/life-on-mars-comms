@@ -1,0 +1,13 @@
+{
+  "name": "Ares I",
+  "settlement": "Ares Outpost",
+  "launchAt": "2026-10-01T12:00:00Z",
+  "arrivalAt": "2026-11-16T00:00:00-05:00",
+  "settlementWindow": {
+    "startsAt": "2026-11-16T00:00:00-05:00",
+    "endsAt": "2027-01-01T00:00:00-05:00"
+  },
+  "marsLongitudeEast": 0,
+  "ttMinusUtcSeconds": 69.184,
+  "delayDays": 7
+}

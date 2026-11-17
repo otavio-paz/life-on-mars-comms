@@ -1,0 +1,21 @@
+title: "DELAY — Earth / Mars correspondence"
+description: "A small experiment in distance, patience, and staying in touch."
+url: ""
+baseurl: ""
+markdown: kramdown
+exclude:
+  - node_modules
+  - api
+  - lib
+  - scripts
+  - tests
+  - docs
+  - supabase
+  - package.json
+  - package-lock.json
+  - vercel.json
+  - README.md
+  - DESIGN.md
+  - Gemfile
+  - Gemfile.lock
+  - .env.example

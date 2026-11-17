@@ -1,0 +1,11 @@
+import { readFile, mkdir, writeFile } from 'node:fs/promises';
+const lock = await readFile('Gemfile.lock', 'utf8');
+const queries = [...lock.matchAll(/^    ([\w.-]+) \(([^)]+)\)$/gm)].map(([, name, v]) => ({ package: { name, ecosystem: 'RubyGems' }, version: v.replace(/-(?:x64|x86|arm|aarch|ruby).*/, '') }));
+const response = await fetch('https://api.osv.dev/v1/querybatch', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ queries }), signal: AbortSignal.timeout(30000) });
+if (!response.ok) throw new Error(`OSV returned ${response.status}`);
+const data = await response.json();
+const findings = data.results.flatMap((r, i) => (r.vulns || []).map(v => ({ ...queries[i], id: v.id })));
+const report = { checkedAt: new Date().toISOString(), source: 'https://osv.dev', packagesChecked: queries.length, findings, scope: 'Gemfile.lock only. No third-party npm dependencies. Does not scan provider configuration or deployed infrastructure.' };
+await mkdir('.local', { recursive: true }); await writeFile('.local/dependency-audit.json', JSON.stringify(report, null, 2));
+console.log(JSON.stringify(report, null, 2));
+if (findings.length) process.exitCode = 1;

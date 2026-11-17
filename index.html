@@ -1,0 +1,55 @@
+---
+layout: default
+---
+<div class="site-shell">
+  <header class="masthead">
+    <a class="wordmark" href="/" aria-label="Delay home">DELAY<span class="wordmark-period">.</span></a>
+    <div class="masthead-right"><span class="status-dot"></span><span>CONNECTED</span><button id="theme-toggle" class="icon-button" aria-label="Switch to light theme" title="Switch theme">◐</button></div>
+  </header>
+
+  <main>
+<section class="mission-strip" aria-labelledby="mission-heading">
+      <div class="mission-heading"><h1 id="mission-heading">ARES I</h1><span class="phase-badge" id="phase-badge">IN TRANSIT</span><button class="text-button" id="mission-button">MISSION CONFIG ↗</button></div>
+      <div class="flight-path" aria-label="Flight progress from Earth to Mars"><span class="station-label earth">EARTH</span><div class="trajectory"><div class="trajectory-track"></div><div class="trajectory-done" id="trajectory-done"></div><span class="ship" id="ship" aria-hidden="true">&gt;=&gt;</span></div><span class="station-label mars">MARS</span></div>
+      <div class="flight-detail"><span id="flight-day">DAY —</span><span id="flight-percent">—</span><span id="arrival-countdown">—</span></div>
+    </section>
+
+    <section class="workspace" id="workspace" aria-label="Communication terminal">
+      <div class="terminal-window">
+        <div class="terminal-chrome"><span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span><span id="terminal-title">guest@ares-i: ~/comms</span><span class="terminal-protocol">bash</span></div>
+        <div class="terminal-tabs" role="tablist" aria-label="Terminal views"><button class="terminal-tab active" role="tab" id="tab-compose" aria-controls="panel-compose" aria-selected="true" data-tab="compose">TRANSMIT</button><button class="terminal-tab" role="tab" id="tab-outbox" aria-controls="panel-outbox" aria-selected="false" tabindex="-1" data-tab="outbox">OUTBOX <span class="count" id="outbox-count">0</span></button><button class="terminal-tab" role="tab" id="tab-guide" aria-controls="panel-guide" aria-selected="false" tabindex="-1" data-tab="guide">HELP</button></div>
+        <div class="terminal-body">
+          <div class="boot-log" id="boot-log" aria-label="Connection log"><p><span class="log-ok">[ OK ]</span> relay connected <span class="log-muted">/ 128 KB/s simulated</span></p></div>
+          <div class="mode-line"><span id="mode-description">DEMO · email disabled</span></div>
+          <section role="tabpanel" id="panel-compose" aria-labelledby="tab-compose">
+            <form id="identity-form" class="identity-form"><p class="command-line"><span class="prompt">guest@relay:~$</span> login<span class="block-cursor" aria-hidden="true"></span></p><div class="identity-fields"><label>NAME<input id="callsign" name="callsign" placeholder="Your name" maxlength="40" required autocomplete="given-name"></label><label>EMAIL<input id="sender-email" name="email" type="email" placeholder="you@example.com" maxlength="254" required autocomplete="email"></label></div><div class="identity-actions"><button class="button button-small" id="identity-submit" type="submit">CONNECT <span aria-hidden="true">↵</span></button></div></form>
+            <form id="otp-form" class="otp-form" hidden><p class="command-line"><span class="prompt">auth@relay:~$</span> verify_access</p><label>EMAIL VERIFICATION CODE<input id="otp" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6,10}" minlength="6" maxlength="10" required placeholder="Enter the code from your email"></label><button class="button button-small" type="submit">VERIFY CODE ↵</button><button class="text-button" id="otp-back" type="button">CHANGE EMAIL</button></form>
+            <div class="identity-connected" id="identity-connected" hidden><span class="log-ok">[ AUTH ]</span><span id="identity-name"></span><button class="text-button" id="disconnect" type="button">DISCONNECT</button></div>
+            <form id="message-form">
+              <div class="compose-heading"><p class="command-line"><span class="prompt" id="compose-prompt">guest@relay:~$</span> send</p></div>
+              <fieldset class="station-field"><legend>FROM</legend><div class="station-switch"><label><input type="radio" name="station" value="earth" checked><span>EARTH</span></label><label><input type="radio" name="station" value="mars"><span><span id="remote-station-label">ARES I</span></span></label></div><span class="route-label" id="route-label">→ ARES I / MARS-BOUND</span></fieldset>
+              <label class="recipient-field"><span class="field-prefix">TO</span><input id="recipient" name="recipient" type="email" autocomplete="email" maxlength="254" required placeholder="Recipient email" aria-label="Recipient email"></label>
+              <label class="subject-field"><span class="field-prefix">RE</span><input id="subject" name="subject" maxlength="120" required placeholder="Subject" aria-label="Message subject"></label>
+              <label class="message-label" for="message">MESSAGE</label><textarea id="message" name="message" maxlength="10000" required placeholder="Write your message…"></textarea>
+              <div class="message-meta"><span><span id="char-count">0</span> / 10,000</span><span id="packet-size">0 B</span></div>
+              <div class="compose-footer"><span class="dispatch-info">ARRIVES <strong id="estimated-arrival">—</strong></span><button class="button transmit-button" type="submit" id="transmit-button">TRANSMIT <span aria-hidden="true">↗</span></button></div>
+            </form>
+          </section>
+          <section role="tabpanel" id="panel-outbox" aria-labelledby="tab-outbox" hidden><p class="command-line"><span class="prompt">relay:~$</span> list_transmissions</p><div id="outbox-list"></div></section>
+          <section role="tabpanel" id="panel-guide" aria-labelledby="tab-guide" hidden><p class="command-line"><span class="prompt">relay:~$</span> help</p><div class="field-guide"><p>Connect your name and email. Live mode requires an email code.</p><p>Choose your station. Messages dispatch seven days later; replies take another seven.</p><p>Mission config previews flight or settlement. Date changes only affect this browser.</p><p>Classroom simulation: flight and link data are illustrative. The week-long delay is not real radio travel time. Mars time is mean solar time.</p></div></section>
+          <div id="demo-controls" hidden><button class="text-button" id="reset-demo" type="button">RESET LOCAL DEMO</button></div>
+          <div class="terminal-feedback" id="terminal-feedback" role="status" aria-live="polite"></div>
+        </div>
+        <div class="terminal-status"><span><span class="status-dot"></span> <span id="relay-status">READY</span></span><span>DELAY 168h</span></div>
+      </div>
+
+      <aside class="sidebar" aria-label="Mission clocks">
+        <section class="clock-instrument"><div class="world-clock"><div class="clock-label"><span>EARTH</span><span class="clock-zone">UTC</span></div><time id="earth-clock">00:00:00</time><div class="clock-date" id="earth-date">—</div></div><div class="world-clock mars-clock"><div class="clock-label"><span>MARS</span><span class="clock-zone" id="mars-clock-zone">MTC</span></div><time id="mars-clock">00:00:00</time><div class="clock-date" id="mars-sol">—</div></div></section>
+        <dl class="signal-data"><div><dt>ONE-WAY DELAY</dt><dd>7 DAYS</dd></div><div><dt>QUEUED</dt><dd id="buffer-count">0</dd></div></dl>
+      </aside>
+    </section>
+  </main>
+  <footer class="site-footer">LIFE ON MARS / CLASSROOM SIMULATION</footer>
+</div>
+
+<dialog id="mission-dialog" class="mission-dialog" aria-labelledby="config-title"><form id="mission-form"><div class="dialog-heading"><span class="section-index">LOCAL PREVIEW</span><button type="button" class="icon-button" id="close-mission" aria-label="Close mission configuration">×</button></div><h2 id="config-title">Mission config</h2><p>Local changes only. Email delay stays seven days.</p><label>LAUNCH / YOUR LOCAL TIME<input type="datetime-local" id="launch-date" required></label><label>ARRIVAL / YOUR LOCAL TIME<input type="datetime-local" id="arrival-date" required></label><label>PHASE PREVIEW<select id="preview-phase"><option value="auto">Automatic · follow mission dates</option><option value="travel">Phase 01 · travelling to Mars</option><option value="settlement">Phase 02 · settlement on Mars</option></select></label><p id="mission-error" role="alert"></p><div class="dialog-actions"><button class="text-button" type="button" id="reset-mission">RESTORE DEFAULTS</button><button class="button" type="submit">APPLY ↵</button></div></form></dialog>
