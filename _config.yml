@@ -18,4 +18,3 @@ exclude:
   - DESIGN.md
   - Gemfile
   - Gemfile.lock
-  - .env.example

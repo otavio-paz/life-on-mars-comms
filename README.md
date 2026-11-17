@@ -29,7 +29,7 @@ Output is `_site/`. To preview only the generated static interface with Jekyll, 
 
 The Node functions use **Supabase email OTP** for identity and durable history, and **Resend scheduling** for correspondence. The database fixes dispatch at 168 hours after submission; Resend handles it with the browser closed. Authentication emails are immediate. No browser timers or daily cron are used for real delivery.
 
-Follow [the complete setup guide](docs/SETUP.md) for domain verification, SMTP, authentication templates, environment variables, mission dates, and Vercel deployment. `.env.example` lists all configuration. Never commit credentials. No deployment has been made by this build.
+Follow [the complete setup guide](docs/SETUP.md) for domain verification, SMTP, authentication templates, environment variables, mission dates, and Vercel deployment. The guide lists every required environment variable. Never commit credentials. No deployment has been made by this build.
 
 ## Project map
 
